@@ -18,10 +18,11 @@ from musescore_scraper import MuseScraper, AsyncMuseScraper
 URL = "https://musescore.com/masonatcapricestudio/bully-calliope-mori-bully-ijimekko-bully-mori-calliope"
 URL_FOR_PNG = "https://musescore.com/user/1001256/scores/470896"
 
-DATA_JSON = json.load((Path(__file__).parent / "testdata/pyppeteer_example_data.json").open('r'))
+DATA_JSON = json.load(
+    (Path(__file__).parent / "testdata/pyppeteer_example_data.json").open("r")
+)
 DATA_PDF = (Path(__file__).parent / "testdata/example1.pdf").read_bytes()
 DATA_PDF_FOR_PNG = (Path(__file__).parent / "testdata/example3.pdf").read_bytes()
-
 
 
 @pytest.mark.asyncio
@@ -58,6 +59,7 @@ def test_MuseScraper():
 
     fname.unlink()
 
+
 def test_MuseScraper_png():
     with NamedTemporaryFile(suffix=".pdf", delete=False) as tf:
         fname: Path = Path(tf.name)
@@ -79,6 +81,7 @@ def test_double_close():
         assert issubclass(w[-1].category, RuntimeWarning)
         assert "Already closed." == str(w[-1].message)
 
+
 def test_timeout():
     with NamedTemporaryFile(suffix=".pdf", delete=False) as tf:
         fname: Path = Path(tf.name)
@@ -89,4 +92,3 @@ def test_timeout():
     assert fname.read_bytes() != DATA_PDF
 
     fname.unlink()
-
